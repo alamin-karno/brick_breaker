@@ -30,6 +30,7 @@ class BrickBreaker extends FlameGame
     world.add(PlayArea());
 
     world.add(Ball(
+        difficultyModifier: difficultyModifier,
         position: size / 2,
         radius: ballRadius,
         velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2)
@@ -41,6 +42,17 @@ class BrickBreaker extends FlameGame
       position: Vector2(width / 2, height * 0.95),
       size: Vector2(batWidth, batHeight),
     ));
+
+    world.addAll([
+      for (var i = 0; i < brickColors.length; i++)
+        for (var j = 1; j <= 5; j++)
+          Brick(
+              Vector2(
+                (i + 0.5) * brickWidth + (i + 1) * brickGutter,
+                (j + 2.0) * brickHeight + j * brickGutter,
+              ),
+              brickColors[i])
+    ]);
 
     return super.onLoad();
   }
