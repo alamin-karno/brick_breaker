@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:brick_breaker/src/brick_breaker.dart';
 import 'package:brick_breaker/src/components/components.dart';
 import 'package:brick_breaker/src/config.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flutter/material.dart';
 
 class Brick extends RectangleComponent
     with CollisionCallbacks, HasGameReference<BrickBreaker> {
@@ -25,6 +24,9 @@ class Brick extends RectangleComponent
     super.onCollisionStart(intersectionPoints, other);
 
     removeFromParent();
+    game.score.value++;
+
+    debugPrint('----- ${game.score.value}');
 
     if (game.world.children.query<Brick>().length == 1) {
       game.playState = PlayState.won;
